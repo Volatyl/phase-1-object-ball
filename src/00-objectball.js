@@ -182,12 +182,14 @@ function playerNumbers(teamName) {
 function playerStats(playerName) {
   for (const team in myObject) {
     const players = myObject[team].players;
+
     if (players.hasOwnProperty(playerName)) {
       return players[playerName];
     }
   }
   return null;
 }
+playerStats();
 
 function bigShoeRebounds() {
   let largestShoeSize = 0;
@@ -199,11 +201,25 @@ function bigShoeRebounds() {
       if (parseInt(myObject[team].players[player].shoe) > largestShoeSize) {
         largestShoeSize = parseInt(myObject[team].players[player].shoe);
         playerWithLargestShoeSize = player;
-        rebounds = player.rebounds;
+        rebounds = myObject[team].players[player].rebounds;
       }
     }
   }
-  return `Player: ${playerWithLargestShoeSize} shoe size: ${largestShoeSize} ${rebounds}`;
+  return `Player: ${playerWithLargestShoeSize} shoe size: ${largestShoeSize} Rebounds: ${rebounds}`;
 }
 
-pr(bigShoeRebounds());
+function mostPointsScored() {
+  let mostPoints = 0;
+  let playerWithMostPoints;
+
+  for (const team in myObject) {
+    for (const player in myObject[team].players) {
+      if (parseInt(myObject[team].players[player].points) > mostPoints) {
+        mostPoints = myObject[team].players[player].points;
+        playerWithMostPoints = player;
+      }
+    }
+  }
+  return `Most points scored: ${mostPoints} by: ${playerWithMostPoints}`;
+}
+pr(mostPointsScored());
