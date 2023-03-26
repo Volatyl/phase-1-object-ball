@@ -222,4 +222,35 @@ function mostPointsScored() {
   }
   return `Most points scored: ${mostPoints} by: ${playerWithMostPoints}`;
 }
-pr(mostPointsScored());
+
+function winningTeam() {
+  let homePoints = 0;
+  let awayPoints = 0;
+
+  for (let player in myObject.home.players) {
+    homePoints += parseInt(myObject.home.players[player].points);
+  }
+  for (let player in myObject.away.players) {
+    awayPoints += parseInt(myObject.away.players[player].points);
+  }
+  if (homePoints > awayPoints) {
+    return `Winning team is ${myObject.home.teamName} with ${homePoints} points`;
+  } else {
+    return `Winning team is ${myObject.away.teamName} with ${awayPoints} points`;
+  }
+}
+
+function playerWithLongestName() {
+  let players = [];
+
+  for (const team in myObject) {
+    for (const player in myObject[team].players) {
+      players.push(player);
+    }
+  }
+  const longestName = players.reduce((current, longest) => {
+    return current.length > longest.length ? current : longest;
+  }, "");
+  return longestName;
+}
+pr(playerWithLongestName());
